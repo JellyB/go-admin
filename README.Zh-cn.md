@@ -109,7 +109,7 @@ antd体验：[https://antd.go-admin.pro](https://antd.go-admin.pro/)
 
 ### 环境要求
 
-go 1.18
+go 1.18, 使用 gvm 切换 go 版本
 
 node版本: v14.16.0
 
@@ -152,8 +152,8 @@ go mod tidy
 go build
 
 # 修改配置 
-# 文件路径  go-admin/config/settings.yml
-vi ./config/setting.yml 
+# 文件路径  go-admin/config/settings.dev.yml
+vi ./config/setting.dev.yml 
 
 # 1. 配置文件中修改数据库信息 
 # 注意: settings.database 下对应的配置数据
@@ -183,6 +183,8 @@ cgo: exec gcc: exec: "gcc": executable file not found in %PATH%
 #### 初始化数据库，以及服务启动
 
 ``` bash
+# sqlite 文件转储为 sql 文件
+$ sqlite3 ./go-admin.db .dump > ./go-admin.sql
 # 首次配置需要初始化数据库资源信息
 # macOS or linux 下使用
 $ ./go-admin migrate -c config/settings.dev.yml
@@ -193,7 +195,7 @@ $ go-admin.exe migrate -c config/settings.dev.yml
 
 # 启动项目，也可以用IDE进行调试
 # macOS or linux 下使用
-$ ./go-admin server -c config/settings.yml
+$ ./go-admin server -c config/settings.dev.yml
 
 
 # ⚠️注意:windows 下使用
@@ -204,7 +206,7 @@ $ go-admin.exe server -c config/settings.yml
 
 在项目启动时，使用`-a true` 系统会自动添加缺少的接口数据
 ```bash
-./go-admin server -c config/settings.yml -a true
+./go-admin server -c config/settings.dev.yml -a true
 ```
 
 #### 使用docker 编译启动
